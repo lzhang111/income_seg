@@ -8,7 +8,7 @@
 # ignore shape files
 *.shp 
 *.dbf
-*.prg
+*.prj
 *.sbn
 *.sbx
 *.shx
