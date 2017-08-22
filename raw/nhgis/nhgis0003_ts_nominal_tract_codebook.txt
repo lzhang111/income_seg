@@ -1,0 +1,733 @@
+--------------------------------------------------------------------------------
+Codebook for NHGIS data file 'nhgis0003_ts_nominal_tract'
+--------------------------------------------------------------------------------
+ 
+Contents
+    - Data Summary
+    - Data Dictionary
+    - Geographic Integration Methods
+    - Source Data
+    - Citation and Use
+ 
+Detailed notes on time series design and comparability are available at: 
+    https://www.nhgis.org/sites/www.nhgis.org/files/nhgis_time_series_tables.pdf 
+ 
+--------------------------------------------------------------------------------
+Data Summary
+--------------------------------------------------------------------------------
+ 
+Time series layout:     Time varies by row
+Geographic level:       Census Tract (by State--County)
+Geographic integration: Nominal
+Measurement times:      1990, 2000, 2008-2012
+ 
+Tables:
+ 
+1. Households by Income in Previous Year [15]
+   Valid years in file: 1990, 2000, 2008-2012
+   Code: B71
+ 
+2. Families by Income in Previous Year [15]
+   Valid years in file: 1990, 2000, 2008-2012
+   Code: A90
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Context Fields 
+        NHGISCODE:   NHGIS Integrated Geographic Unit Code
+        GISJOIN:     Year-Specific GIS Join Match Code
+        YEAR:        Row Source Year
+        STATE:       NHGIS Integrated State Name
+        STATEFP:     FIPS State Code
+        STATENH:     NHGIS Integrated State Code
+        COUNTY:      NHGIS Integrated County Name
+        COUNTYFP:    FIPS County Code
+        COUNTYNH:    NHGIS Integrated County Code
+        TRACTA:      NHGIS Integrated Census Tract Code
+        NAME:        Year-Specific Area Name
+ 
+Table 1: (B71) Households by Income in Previous Year [15]
+        B71AA:       Households: Income less than $10,000
+        B71AB:       Households: Income $10,000 to $14,999
+        B71AC:       Households: Income $15,000 to $19,999
+        B71AD:       Households: Income $20,000 to $24,999
+        B71AE:       Households: Income $25,000 to $29,999
+        B71AF:       Households: Income $30,000 to $34,999
+        B71AG:       Households: Income $35,000 to $39,999
+        B71AH:       Households: Income $40,000 to $44,999
+        B71AI:       Households: Income $45,000 to $49,999
+        B71AJ:       Households: Income $50,000 to $59,999
+        B71AK:       Households: Income $60,000 to $74,999
+        B71AL:       Households: Income $75,000 to $99,999
+        B71AM:       Households: Income $100,000 to $124,999
+        B71AN:       Households: Income $125,000 to $149,999
+        B71AO:       Households: Income $150,000 or more
+ 
+Table 2: (A90) Families by Income in Previous Year [15]
+        A90AA:       Families: Income less than $10,000
+        A90AB:       Families: Income $10,000 to $14,999
+        A90AC:       Families: Income $15,000 to $19,999
+        A90AD:       Families: Income $20,000 to $24,999
+        A90AE:       Families: Income $25,000 to $29,999
+        A90AF:       Families: Income $30,000 to $34,999
+        A90AG:       Families: Income $35,000 to $39,999
+        A90AH:       Families: Income $40,000 to $44,999
+        A90AI:       Families: Income $45,000 to $49,999
+        A90AJ:       Families: Income $50,000 to $59,999
+        A90AK:       Families: Income $60,000 to $74,999
+        A90AL:       Families: Income $75,000 to $99,999
+        A90AM:       Families: Income $100,000 to $124,999
+        A90AN:       Families: Income $125,000 to $149,999
+        A90AO:       Families: Income $150,000 or more
+ 
+Margins of Error 
+(Provided for American Community Survey data only) 
+ 
+Table 1: (B71) Households by Income in Previous Year [15]
+        B71AAM:      Margin of error: Households: Income less than $10,000
+        B71ABM:      Margin of error: Households: Income $10,000 to $14,999
+        B71ACM:      Margin of error: Households: Income $15,000 to $19,999
+        B71ADM:      Margin of error: Households: Income $20,000 to $24,999
+        B71AEM:      Margin of error: Households: Income $25,000 to $29,999
+        B71AFM:      Margin of error: Households: Income $30,000 to $34,999
+        B71AGM:      Margin of error: Households: Income $35,000 to $39,999
+        B71AHM:      Margin of error: Households: Income $40,000 to $44,999
+        B71AIM:      Margin of error: Households: Income $45,000 to $49,999
+        B71AJM:      Margin of error: Households: Income $50,000 to $59,999
+        B71AKM:      Margin of error: Households: Income $60,000 to $74,999
+        B71ALM:      Margin of error: Households: Income $75,000 to $99,999
+        B71AMM:      Margin of error: Households: Income $100,000 to $124,999
+        B71ANM:      Margin of error: Households: Income $125,000 to $149,999
+        B71AOM:      Margin of error: Households: Income $150,000 or more
+ 
+Table 2: (A90) Families by Income in Previous Year [15]
+        A90AAM:      Margin of error: Families: Income less than $10,000
+        A90ABM:      Margin of error: Families: Income $10,000 to $14,999
+        A90ACM:      Margin of error: Families: Income $15,000 to $19,999
+        A90ADM:      Margin of error: Families: Income $20,000 to $24,999
+        A90AEM:      Margin of error: Families: Income $25,000 to $29,999
+        A90AFM:      Margin of error: Families: Income $30,000 to $34,999
+        A90AGM:      Margin of error: Families: Income $35,000 to $39,999
+        A90AHM:      Margin of error: Families: Income $40,000 to $44,999
+        A90AIM:      Margin of error: Families: Income $45,000 to $49,999
+        A90AJM:      Margin of error: Families: Income $50,000 to $59,999
+        A90AKM:      Margin of error: Families: Income $60,000 to $74,999
+        A90ALM:      Margin of error: Families: Income $75,000 to $99,999
+        A90AMM:      Margin of error: Families: Income $100,000 to $124,999
+        A90ANM:      Margin of error: Families: Income $125,000 to $149,999
+        A90AOM:      Margin of error: Families: Income $150,000 or more
+ 
+--------------------------------------------------------------------------------
+Geographic Integration Methods
+--------------------------------------------------------------------------------
+ 
+Nominal Integration:
+
+    Nominally integrated tables link geographic units across time according to
+    their names and codes, disregarding any changes in unit boundaries. The
+    identified geographic units match those from each census source, so the
+    spatial definitions and total number of units may vary from one time to
+    another (e.g., a city may annex land, a tract may be split in two, a new
+    county may be created, etc.). The tables include data for a particular
+    geographic unit only at times when the unit's name or code was in use,
+    resulting in truncated time series for some areas.
+    
+    Users should be cautious when interpreting changes in nominally integrated
+    time series because a single unit code may refer to distinctly different
+    areas at different times. If you are uncertain whether any boundaries
+    changed in your areas of interest, we recommend inspecting NHGIS boundary
+    files to confirm. (At this time, boundary files are available for all units
+    and years in nominally integrated time series *except* 1970 places and
+    county subdivisions.)
+    
+    Alternatively, for some topics and time periods, NHGIS provides
+    "geographically standardized" time series, which provide data from multiple
+    times for a single census's geographic units (e.g., 2000 and 2010 data for
+    2010 census units). A disadvantage of standardized time series is that, in
+    areas where source units do not nest perfectly within a unit of the standard
+    year (e.g., where a source 2000 unit intersects multiple 2010 units), NHGIS
+    applies interpolation to standardize the data, a process which may
+    occasionally produce substantial errors.
+
+Complete documentation on time series integration methods is available at:
+    https://www.nhgis.org/documentation/time-series
+ 
+--------------------------------------------------------------------------------
+Source Data
+--------------------------------------------------------------------------------
+ 
+Additional documentation on NHGIS data sources is available at:
+    https://www.nhgis.org/documentation/tabular-data
+
+Table 1: (B71) Households by Income in Previous Year [15]
+ 
+    Time series AA: Households: Income less than $10,000
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T001] Less than $5,000
+                        Variable: [E4T002] $5,000 to $9,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX001] Less than $10,000
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0002] Less than $10,000
+ 
+    Time series AB: Households: Income $10,000 to $14,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T003] $10,000 to $12,499
+                        Variable: [E4T004] $12,500 to $14,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX002] $10,000 to $14,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0003] $10,000 to $14,999
+ 
+    Time series AC: Households: Income $15,000 to $19,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T005] $15,000 to $17,499
+                        Variable: [E4T006] $17,500 to $19,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX003] $15,000 to $19,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0004] $15,000 to $19,999
+ 
+    Time series AD: Households: Income $20,000 to $24,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T007] $20,000 to $22,499
+                        Variable: [E4T008] $22,500 to $24,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX004] $20,000 to $24,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0005] $20,000 to $24,999
+ 
+    Time series AE: Households: Income $25,000 to $29,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T009] $25,000 to $27,499
+                        Variable: [E4T010] $27,500 to $29,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX005] $25,000 to $29,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0006] $25,000 to $29,999
+ 
+    Time series AF: Households: Income $30,000 to $34,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T011] $30,000 to $32,499
+                        Variable: [E4T012] $32,500 to $34,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX006] $30,000 to $34,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0007] $30,000 to $34,999
+ 
+    Time series AG: Households: Income $35,000 to $39,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T013] $35,000 to $37,499
+                        Variable: [E4T014] $37,500 to $39,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX007] $35,000 to $39,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0008] $35,000 to $39,999
+ 
+    Time series AH: Households: Income $40,000 to $44,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T015] $40,000 to $42,499
+                        Variable: [E4T016] $42,500 to $44,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX008] $40,000 to $44,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0009] $40,000 to $44,999
+ 
+    Time series AI: Households: Income $45,000 to $49,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T017] $45,000 to $47,499
+                        Variable: [E4T018] $47,500 to $49,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX009] $45,000 to $49,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0010] $45,000 to $49,999
+ 
+    Time series AJ: Households: Income $50,000 to $59,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T019] $50,000 to $54,999
+                        Variable: [E4T020] $55,000 to $59,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX010] $50,000 to $59,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0011] $50,000 to $59,999
+ 
+    Time series AK: Households: Income $60,000 to $74,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T021] $60,000 to $74,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX011] $60,000 to $74,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0012] $60,000 to $74,999
+ 
+    Time series AL: Households: Income $75,000 to $99,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T022] $75,000 to $99,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX012] $75,000 to $99,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0013] $75,000 to $99,999
+ 
+    Time series AM: Households: Income $100,000 to $124,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T023] $100,000 to $124,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX013] $100,000 to $124,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0014] $100,000 to $124,999
+ 
+    Time series AN: Households: Income $125,000 to $149,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T024] $125,000 to $149,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX014] $125,000 to $149,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0015] $125,000 to $149,999
+ 
+    Time series AO: Households: Income $150,000 or more
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP80. Household Income in 1989
+                    Universe: Households
+                        Variable: [E4T025] $150,000 or more
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP052A. Household Income in 1999
+                    Universe: Households
+                        Variable: [GMX015] $150,000 to $199,999
+                        Variable: [GMX016] $200,000 or more
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19001. Household Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Households
+                        Variable: [QU0016] $150,000 to $199,999
+                        Variable: [QU0017] $200,000 or more
+ 
+ 
+Table 2: (A90) Families by Income in Previous Year [15]
+ 
+    Time series AA: Families: Income less than $10,000
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q001] Less than $5,000
+                        Variable: [E0Q002] $5,000 to $9,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN001] Less than $10,000
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6002] Less than $10,000
+ 
+    Time series AB: Families: Income $10,000 to $14,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q003] $10,000 to $12,499
+                        Variable: [E0Q004] $12,500 to $14,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN002] $10,000 to $14,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6003] $10,000 to $14,999
+ 
+    Time series AC: Families: Income $15,000 to $19,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q005] $15,000 to $17,499
+                        Variable: [E0Q006] $17,500 to $19,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN003] $15,000 to $19,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6004] $15,000 to $19,999
+ 
+    Time series AD: Families: Income $20,000 to $24,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q007] $20,000 to $22,499
+                        Variable: [E0Q008] $22,500 to $24,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN004] $20,000 to $24,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6005] $20,000 to $24,999
+ 
+    Time series AE: Families: Income $25,000 to $29,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q009] $25,000 to $27,499
+                        Variable: [E0Q010] $27,500 to $29,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN005] $25,000 to $29,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6006] $25,000 to $29,999
+ 
+    Time series AF: Families: Income $30,000 to $34,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q011] $30,000 to $32,499
+                        Variable: [E0Q012] $32,500 to $34,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN006] $30,000 to $34,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6007] $30,000 to $34,999
+ 
+    Time series AG: Families: Income $35,000 to $39,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q013] $35,000 to $37,499
+                        Variable: [E0Q014] $37,500 to $39,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN007] $35,000 to $39,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6008] $35,000 to $39,999
+ 
+    Time series AH: Families: Income $40,000 to $44,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q015] $40,000 to $42,499
+                        Variable: [E0Q016] $42,500 to $44,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN008] $40,000 to $44,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6009] $40,000 to $44,999
+ 
+    Time series AI: Families: Income $45,000 to $49,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q017] $45,000 to $47,499
+                        Variable: [E0Q018] $47,500 to $49,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN009] $45,000 to $49,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6010] $45,000 to $49,999
+ 
+    Time series AJ: Families: Income $50,000 to $59,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q019] $50,000 to $54,999
+                        Variable: [E0Q020] $55,000 to $59,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN010] $50,000 to $59,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6011] $50,000 to $59,999
+ 
+    Time series AK: Families: Income $60,000 to $74,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q021] $60,000 to $74,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN011] $60,000 to $74,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6012] $60,000 to $74,999
+ 
+    Time series AL: Families: Income $75,000 to $99,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q022] $75,000 to $99,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN012] $75,000 to $99,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6013] $75,000 to $99,999
+ 
+    Time series AM: Families: Income $100,000 to $124,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q023] $100,000 to $124,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN013] $100,000 to $124,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6014] $100,000 to $124,999
+ 
+    Time series AN: Families: Income $125,000 to $149,999
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q024] $125,000 to $149,999
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN014] $125,000 to $149,999
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6015] $125,000 to $149,999
+ 
+    Time series AO: Families: Income $150,000 or more
+        Year: 1990
+            Source dataset: 1990 Census: STF 3 - Sample-Based Data
+                Source table: NP107. Family Income in 1989
+                    Universe: Families
+                        Variable: [E0Q025] $150,000 or more
+        Year: 2000
+            Source dataset: 2000 Census: SF 3a - Sample-Based Data [Areas Larger Than Block Groups]
+                Source table: NP076A. Family Income in 1999
+                    Universe: Families
+                        Variable: [GNN015] $150,000 to $199,999
+                        Variable: [GNN016] $200,000 or more
+        Year: 2008-2012
+            Source dataset: 2012 American Community Survey: 5-Year Data [2008-2012, Block Groups & Larger Areas]
+                Source table: B19101. Family Income in the Past 12 Months (in 2012 Inflation-Adjusted Dollars)
+                    Universe: Families
+                        Variable: [QV6016] $150,000 to $199,999
+                        Variable: [QV6017] $200,000 or more
+ 
+--------------------------------------------------------------------------------
+Citation and Use of NHGIS Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data (either tabular or GIS)
+  must cite it appropriately. The citation should include the following:
+
+    Steven Manson, Jonathan Schroeder, David Van Riper, and Steven Ruggles. 
+    IPUMS National Historical Geographic Information System: Version 12.0 [Database]. 
+    Minneapolis: University of Minnesota. 2017. 
+    http://doi.org/10.18128/D050.V12.0
+
+* For policy briefs or articles in the popular press, we recommend that you cite the use of NHGIS data as follows:
+
+    IPUMS NHGIS, University of Minnesota, www.nhgis.org.
+
+In addition, we request that users send us a copy of any publications, research
+reports, or educational material making use of the data or documentation.
+Printed matter should be sent to:
+
+    NHGIS
+    Minnesota Population Center
+    University of Minnesota
+    50 Willey Hall
+    225 19th Ave S
+    Minneapolis, MN 55455
+
+Send electronic material to: nhgis@umn.edu
