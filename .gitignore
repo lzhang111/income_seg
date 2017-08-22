@@ -2,7 +2,14 @@
 *.log
 
 # ignore data files
-*.csv, *.dta
+*.csv
+*.dta
 
 # ignore shape files
-*.shp, *.dbf, *.prg, *.sbn, *.sbx, *.shx, *.xml
+*.shp 
+*.dbf
+*.prg
+*.sbn
+*.sbx
+*.shx
+*.xml
