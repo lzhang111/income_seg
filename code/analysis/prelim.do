@@ -41,10 +41,8 @@ program isol
 	gen p1 = `race'_`group'/sum_`race'_`group'
 	gen p2 = `race'_`group'/`race'_tot
 	gen p3 = sum_`race'_`group'/sum_`race'_tot 
-	gen p4 = sum_`race'_`group'/`race'_tot 
 
-	gen min_`race' = min(p4, 1)
-	gen f_`race' = (p1*p2-p3)/(min_`race'-p3)
+	gen f_`race' = (p1*p2-p3)/(1-p3)
 	bys msa: egen isol_`race'_`group' = sum(f_`race')
 	drop sum* *_tot p? min_* f_*
 end
