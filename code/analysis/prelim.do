@@ -33,39 +33,50 @@ end
 program isol
 	args race group
 
-	bys msa: egen sum_`race'_`group' = sum(`race'_`group')	//count of race, group in MSA
-	egen `race'_tot = rowtotal(`race'_*)						//count of race in census tract
-	bys msa: egen sum_`race'_tot = sum(`race'_tot)   			//count of race in MSA
+	bys msa: egen sum_`race'_`group' = sum(`race'_`group')	//count of group in MSA
+	egen `race'_tot = rowtotal(`race'_*)					//count of pop in census tract
+	bys msa: egen sum_`race'_tot = sum(`race'_tot)   		//count of pop in MSA
 
 	//calculate some fractions
 	gen p1 = `race'_`group'/sum_`race'_`group'
 	gen p2 = `race'_`group'/`race'_tot
 	gen p3 = sum_`race'_`group'/sum_`race'_tot 
 
-	gen f_`race' = (p1*p2-p3)/(1-p3)
-	bys msa: egen isol_`race'_`group' = sum(f_`race')
-	drop sum* *_tot p? min_* f_*
+	gen n = p1*p2
+	bys msa: egen f = sum(n)
+	gen isol_`race'_`group' = (f-p3)/(1-p3)
+	pause
+	drop sum* *_tot p? f n
 end
 
 
+local group1 5k
+local group2 50pk 
 
 foreach race in w b {
 	preserve
 
-	dissim `race' 5k 50k
-	isol `race' 5k
-	isol `race' 50k
+	dissim `race' `group1' `group2'
+	isol `race' `group1'
+	isol `race' `group2'
 
 	bys msa: keep if _n==1
+	keep if rays_planm<5 & rays_planm>0
+	tab rays_planm
+	
 	sum dissim_`race'
-	sum isol_`race'_5k
-	sum isol_`race'_50k
+	sum isol_`race'_`group1'
+	sum isol_`race'_`group2'
 	sum rays_planm
 	
 	reg dissim_`race' rays_planm
-	reg isol_`race'_5k rays_planm
-	reg isol_`race'_50k rays_planm
-
+	reg isol_`race'_`group1' rays_planm
+	reg isol_`race'_`group2' rays_planm
+	
+	scatter dissim_`race' rays_planm || lfit dissim_`race' rays_planm, name(dissim_`race', replace) 
+	scatter isol_`race'_`group1' rays_planm || lfit isol_`race'_`group1' rays_planm, name(isol_`race'_`group1', replace) 
+	scatter isol_`race'_`group2' rays_planm || isol_`race'_`group2' rays_planm, name(isol_`race'_`group2', replace) 
+	
 	restore
 }
 
