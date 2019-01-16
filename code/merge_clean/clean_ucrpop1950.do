@@ -6,19 +6,27 @@ clear
 set more off
 global main `"/Users/laurazhang/Documents/income_seg/"'
 
-*******create crosswalk dta file at beginning*******
-import delimited "${main}/raw/crosswalks/statefips_crosswalk.csv", clear
-save "${main}/temp/statefips_crosswalk.dta", replace
+*******create state fips crosswalk dta file at beginning*******
+import delimited "${main}/data/raw/crosswalks/statefips_crosswalk.csv", clear
+save "${main}/data/temp/statefips_crosswalk.dta", replace
 ****************************************************
 
-import excel using "${main}/raw/ucr/ucr1950.xlsx", sheet("Sheet1") firstrow clear
-drop L-P
+import excel using "${main}/data/raw/ucr/ucr_pop_1950.xlsx", sheet("Sheet1") firstrow clear
+drop M-P
 
 // drop empty obs
 drop if fullname=="" 
 
 // trim spaces
 replace state = strltrim(state)
+
+// some city names are incorrect
+replace city = "Baton Rouge" if city=="Baton Rouse"
+replace city = "Chattanooga" if city=="Chattanooea"
+replace city = "Green Bay" if city=="Green Ray"
+replace city = "Muncie" if city=="Muneie"
+replace city = "Lafayette" if city=="La Fayette"
+replace city = "Ogden" if city=="Ogdon"
 
 // replace incorrect state
 replace state = "N J" if fullname=="Woodbridge, X J"
@@ -82,22 +90,35 @@ replace statecode = "WI" if state=="Wis"
 replace statecode = "WY" if state=="Wyo"
 
 ** merge in state fips codes**
-merge m:1 statecode using "${main}/temp/statefips_crosswalk.dta", keepusing(statefips) keep(1 3)
+merge m:1 statecode using "${main}/data/temp/statefips_crosswalk.dta", keepusing(statefips) keep(1 3)
 drop _merge
-
-** merge in sma 1950 codes for cities**
-//note that cities do not exactly correspond to SMAs
-//also there are more cities than SMAs since
-//cities in UCR have >25k pop while SMAs must have
-//>50k pop
-/* 
-TO DO 
-*/
 
 ** drop unnecessary vars**
 drop fullname state
 order city state*
 
+** gen total crime var **
+egen crimetot = rowtotal(murder-autotheft), missing
+
+** recode missing values to 0 **
+recode murder-autotheft (.=0)
+
+//exception for where larcenies are combined
+replace larcenytheft_p50 = . if notes=="Larcenies combined"
+
+***Create variable labels***
+label variable murder "# of murders"
+label variable robbery "# of robberies"
+label variable aggassault "# of aggravated assaults"
+label variable burglary "# of burglaries"
+label variable larcenytheft_p50 "# of larcenies or thefts with val 50+ dollars"
+label variable larcenytheft_u50 "# of larcenies or thefts with val <50 dollars"
+label variable autotheft "# of autothefts"
+label variable notes "# notes on missing data"
+label variable pop1950 "population of urbanized area/city in 1950 from census"
+label variable statecode "state 2-char abbreviation"
+label variable crimetot "sum of # of crimes for each city"
+
 
 ** save file ***
-save "${main}/clean/ucr1950.dta", replace
+save "${main}/data/temp/ucr1950.dta", replace
