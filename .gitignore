@@ -1,3 +1,9 @@
+# folders to ignore for now
+data/
+admin/
+output/
+lit/
+
 # ignore log files
 *.log
 
