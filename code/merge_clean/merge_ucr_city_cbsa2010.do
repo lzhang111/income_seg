@@ -81,4 +81,5 @@ order state
 gen crimerate50 = crimetot/pop1950 //crime counts and population is absolute
 replace crimerate50 = crimerate50*1000 //crimes per 1000 people
 
+rename cbsafips cbsa10
 save "${main}/data/temp/ucr1950_cbsa2010.dta", replace

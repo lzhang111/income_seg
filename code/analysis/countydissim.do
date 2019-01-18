@@ -10,7 +10,7 @@ set more off
 global main `"/Users/laurazhang/Documents/income_seg/"'
 set seed 123
 
-use "${main}/clean/master_tract.dta", 
+use "${main}/data/clean/master_tract.dta", 
 rename inc_pctl* inc_qtl* 
 rename (inc*_w* inc*_b*)  (inc**_w inc**_b)
 
@@ -118,7 +118,7 @@ keep if tagcounty
 
 
 *** merge in 1950 control vars ******
-merge 1:1 county using "${main}/temp/county1950vars.dta", keep(1 3) keepusing(*1950)
+merge 1:1 county using "${main}/data/temp/county1950vars.dta", keep(1 3) keepusing(*1950)
 drop _merge
 
 replace medianinc_1950 = medianinc_1950/.241
@@ -174,23 +174,23 @@ twoway (scatter dissim1980_std pct_nearhh) (lfit dissim1980_std pct_nearhh, lcol
 	xtitle("% of Tracts <5 mi from Highway", size(small) ) ytitle("Standardized Income Dissimilarity", size(small)) ///
 	ylabel(-4(1)3) legend(off) ysize(6)
 
-graph export "${main}/plots/firststage.png", replace
+graph export "${main}/output/plots/firststage.png", replace
 
 reg dissim1980_std pct_nearhh, robust
-outreg2 using "${main}/tables/first_all", tex label replace addtext(Division FE, No) 
+outreg2 using "${main}/output/tables/first_all", tex label replace addtext(Division FE, No) 
 reg dissim1980_std pct_nearhh `controls2_1950', robust
-outreg2 using "${main}/tables/first_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
+outreg2 using "${main}/output/tables/first_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
 reg dissim1980_std pct_nearhh `controls1950', robust
-outreg2 using "${main}/tables/first_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
+outreg2 using "${main}/output/tables/first_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
 
 local replace "replace"
 foreach race in _b _w {
 	reg dissim1980`race'_std pct_nearhh
-	outreg2 using "${main}/tables/first_all_race", tex label `replace' addtext(Division FE, No) 
+	outreg2 using "${main}/output/tables/first_all_race", tex label `replace' addtext(Division FE, No) 
 	reg dissim1980`race'_std pct_nearhh `controls2_1950'
-	outreg2 using "${main}/tables/first_all_race", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
+	outreg2 using "${main}/output/tables/first_all_race", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
 	reg dissim1980`race'_std pct_nearhh `controls1950'
-	outreg2 using "${main}/tables/first_all_race", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
+	outreg2 using "${main}/output/tables/first_all_race", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
 
 	local replace ""
 }
@@ -198,19 +198,19 @@ foreach race in _b _w {
 /*
 *Weighted version
 reg dissim1980_std pct_nearhh [w=county_poptot1980], robust
-outreg2 using "${main}/tables/first_all", tex label replace addtext(Division FE, No) 
+outreg2 using "${main}/output/tables/first_all", tex label replace addtext(Division FE, No) 
 reg dissim1980_std pct_nearhh `controls2_1980' [w=county_poptot1980], robust
-outreg2 using "${main}/tables/first_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
+outreg2 using "${main}/output/tables/first_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
 reg dissim1980_std pct_nearhh `controls1980' [w=county_poptot1980], robust
-outreg2 using "${main}/tables/first_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
+outreg2 using "${main}/output/tables/first_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
 
 foreach race in _b _w {
 	reg dissim1980`race'_std pct_nearhh [w=county_poptot1980]
-	outreg2 using "${main}/tables/first_all`race'", tex label replace addtext(Division FE, No) 
+	outreg2 using "${main}/output/tables/first_all`race'", tex label replace addtext(Division FE, No) 
 	reg dissim1980`race'_std pct_nearhh `controls2_1980' [w=county_poptot1980]
-	outreg2 using "${main}/tables/first_all`race'", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
+	outreg2 using "${main}/output/tables/first_all`race'", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
 	reg dissim1980`race'_std pct_nearhh `controls1980' [w=county_poptot1980]
-	outreg2 using "${main}/tables/first_all`race'", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
+	outreg2 using "${main}/output/tables/first_all`race'", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
 
 }
 */
@@ -218,53 +218,53 @@ foreach race in _b _w {
 
 ***** Placebo Check *******
 reg dissim1950_std pct_nearhh , robust
-outreg2 using "${main}/tables/first_placebo_all", tex label replace addtext(Division FE, No) 
+outreg2 using "${main}/output/tables/first_placebo_all", tex label replace addtext(Division FE, No) 
 reg dissim1950_std pct_nearhh `controls2_1950' , robust
-outreg2 using "${main}/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
+outreg2 using "${main}/output/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
 reg dissim1950_std pct_nearhh `controls1950' , robust
-outreg2 using "${main}/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
+outreg2 using "${main}/output/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
 
 * using only the counties that also have data in 1950
 reg dissim1980_std pct_nearhh if dissim1950_std!=. , robust
-outreg2 using "${main}/tables/first_placebo_all", tex label append addtext(Division FE, No) 
+outreg2 using "${main}/output/tables/first_placebo_all", tex label append addtext(Division FE, No) 
 reg dissim1980_std pct_nearhh `controls2_1950' if dissim1950_std!=., robust
-outreg2 using "${main}/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
+outreg2 using "${main}/output/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
 reg dissim1980_std pct_nearhh `controls1950' if dissim1950_std!=., robust
-outreg2 using "${main}/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
+outreg2 using "${main}/output/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
 
 /*
 *Weighted version
 reg dissim1950_std pct_nearhh [w=county_poptot1950], robust
-outreg2 using "${main}/tables/first_placebo_all", tex label replace addtext(Division FE, No) 
+outreg2 using "${main}/output/tables/first_placebo_all", tex label replace addtext(Division FE, No) 
 reg dissim1950_std pct_nearhh `controls2_1950' [w=county_poptot1950], robust
-outreg2 using "${main}/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
+outreg2 using "${main}/output/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
 reg dissim1950_std pct_nearhh `controls1950' [w=county_poptot1950], robust
-outreg2 using "${main}/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
+outreg2 using "${main}/output/tables/first_placebo_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
 
 * using only the counties that also have data in 1950
 reg dissim1980_std pct_nearhh [w=county_poptot1980] if dissim1950_std!=., robust 
-outreg2 using "${main}/tables/first_restricted_all", tex label replace addtext(Division FE, No) 
+outreg2 using "${main}/output/tables/first_restricted_all", tex label replace addtext(Division FE, No) 
 reg dissim1980_std pct_nearhh `controls2_1980' [w=county_poptot1980] if dissim1950_std!=., robust
-outreg2 using "${main}/tables/first_restricted_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
+outreg2 using "${main}/output/tables/first_restricted_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls, No FE)
 reg dissim1980_std pct_nearhh `controls1980' [w=county_poptot1980] if dissim1950_std!=., robust
-outreg2 using "${main}/tables/first_restricted_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
+outreg2 using "${main}/output/tables/first_restricted_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls, With FE)
 */
 
 *** Test of Exclusion restriction - Regress Controls on Instrument ***
 reg crimerate50 pct_nearhh , robust
-outreg2 using "${main}/tables/exclrestrict", tex label replace
+outreg2 using "${main}/output/tables/exclrestrict", tex label replace
 reg county_pct_black1950 pct_nearhh , robust
-outreg2 using "${main}/tables/exclrestrict", tex label append 
+outreg2 using "${main}/output/tables/exclrestrict", tex label append 
 reg county_pct_qtl1_1950 pct_nearhh , robust
-outreg2 using "${main}/tables/exclrestrict", tex label append 
+outreg2 using "${main}/output/tables/exclrestrict", tex label append 
 reg county_pct_qtl5_1950 pct_nearhh , robust 
-outreg2 using "${main}/tables/exclrestrict", tex label append 
+outreg2 using "${main}/output/tables/exclrestrict", tex label append 
 reg logcounty_medianinc1950 pct_nearhh, robust
-outreg2 using "${main}/tables/exclrestrict", tex label append 
+outreg2 using "${main}/output/tables/exclrestrict", tex label append 
 
 
 *** Test of Selective Sorting 
-merge 1:1 county using "${main}/temp/migration_clean.dta", keep(1 3)
+merge 1:1 county using "${main}/data/temp/migration_clean.dta", keep(1 3)
 
 gen diff_w_gender_70 = migrate_wm_1970_25_50 - migrate_wf_1970_25_50
 gen diff_n_gender_70 = migrate_nm_1970_25_50 - migrate_nf_1970_25_50
@@ -274,56 +274,56 @@ gen diff_race_m_70 = migrate_wm_1970_25_50 - migrate_nm_1970_25_50
 
 
 reg migrate_wm_1970_25_50 pct_nearhh `controls2_1950' if dissim1980_std!=., robust
-outreg2 using "${main}/tables/migration", tex label replace 
+outreg2 using "${main}/output/tables/migration", tex label replace 
 reg migrate_wf_1970_25_50 pct_nearhh `controls2_1950' if dissim1980_std!=., robust
-outreg2 using "${main}/tables/migration", tex label 
+outreg2 using "${main}/output/tables/migration", tex label 
 reg migrate_nm_1970_25_50 pct_nearhh  `controls2_1950' if dissim1980_std!=., robust
-outreg2 using "${main}/tables/migration", tex label 
+outreg2 using "${main}/output/tables/migration", tex label 
 reg migrate_nf_1970_25_50 pct_nearhh  `controls2_1950' if dissim1980_std!=., robust
-outreg2 using "${main}/tables/migration", tex label 
+outreg2 using "${main}/output/tables/migration", tex label 
 
 /*
 reg migrate_tm_1980_25_50 pct_nearhh `controls1980', robust
-outreg2 using "${main}/tables/migration", tex label 
+outreg2 using "${main}/output/tables/migration", tex label 
 reg migrate_tf_1980_25_50 pct_nearhh `controls1980', robust
-outreg2 using "${main}/tables/migration", tex label 
+outreg2 using "${main}/output/tables/migration", tex label 
 */
 
 reg diff_w_gender_70 pct_nearhh `controls2_1950' if dissim1980_std!=., robust
-outreg2 using "${main}/tables/migration_gap", tex label replace 
+outreg2 using "${main}/output/tables/migration_gap", tex label replace 
 reg diff_n_gender_70 pct_nearhh `controls2_1950' if dissim1980_std!=., robust
-outreg2 using "${main}/tables/migration_gap", tex label 
+outreg2 using "${main}/output/tables/migration_gap", tex label 
 reg diff_race_m_70 pct_nearhh `controls2_1950' if dissim1980_std!=., robust
-outreg2 using "${main}/tables/migration_gap", tex label 
+outreg2 using "${main}/output/tables/migration_gap", tex label 
 reg diff_race_f_70 pct_nearhh `controls2_1950' if dissim1980_std!=., robust
-outreg2 using "${main}/tables/migration_gap", tex label 
+outreg2 using "${main}/output/tables/migration_gap", tex label 
 
 /*
 reg diff_gender_80 pct_nearhh `controls1980', robust
-outreg2 using "${main}/tables/migration_gap", tex label 
+outreg2 using "${main}/output/tables/migration_gap", tex label 
 */
 
 **** Test of Growth Effect ****
 
 reg logcounty_avgmedianinc1980 pct_nearhh , robust
-outreg2 using "${main}/tables/growth_check", tex label replace
+outreg2 using "${main}/output/tables/growth_check", tex label replace
 
 reg logcounty_avgmedianinc1980 pct_nearhh logcounty_medianinc1950 logcounty_population1950 crimerate50, robust
-outreg2 using "${main}/tables/growth_check", tex label append 
+outreg2 using "${main}/output/tables/growth_check", tex label append 
 
 
 **** Analysis of effects of seg **
 keep county-ndivision
 rename county county2010
-merge 1:1 county2010 using "${main}/temp/countyxwalk_1980_2010.dta", keepusing(county1980)
+merge 1:1 county2010 using "${main}/data/temp/countyxwalk_1980_2010.dta", keepusing(county1980)
 replace county1980 = county2010 if county1980==""
 drop _merge
-merge 1:m county2010 using "${main}/temp/countyxwalk_2000_2010.dta", keepusing(county2000)
+merge 1:m county2010 using "${main}/data/temp/countyxwalk_2000_2010.dta", keepusing(county2000)
 drop _merge
 
 * merge in Chetty data
 destring county2000, gen(cty2000)
-merge m:1 cty2000 using "${main}/raw/chetty/online_table2.dta"
+merge m:1 cty2000 using "${main}/data/raw/chetty/online_table2.dta"
 drop _merge
 
 * Label Variables for tables
@@ -339,19 +339,19 @@ foreach income in p25 p75 {
 	
 	//IV
 	ivregress 2sls pct_causal_`income'_kr26 (dissim1980_std=pct_nearhh), vce(robust)
-	outreg2 using "${main}/tables/iv_all", `replace' tex label  addtext(Division FE, No) 
+	outreg2 using "${main}/output/tables/iv_all", `replace' tex label  addtext(Division FE, No) 
 	ivregress 2sls pct_causal_`income'_kr26 (dissim1980_std=pct_nearhh) `controls2_1950', vce(robust)
-	outreg2 using "${main}/tables/iv_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls)
+	outreg2 using "${main}/output/tables/iv_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls)
 	ivregress 2sls pct_causal_`income'_kr26 (dissim1980_std=pct_nearhh) `controls1950', vce(robust)
-	outreg2 using "${main}/tables/iv_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls) 
+	outreg2 using "${main}/output/tables/iv_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls) 
 	
 	//OLS
 	reg pct_causal_`income'_kr26 dissim1980_std, vce(robust)
-	outreg2 using "${main}/tables/ols_all", `replace' tex label addtext(Division FE, No) 
+	outreg2 using "${main}/output/tables/ols_all", `replace' tex label addtext(Division FE, No) 
 	reg pct_causal_`income'_kr26 dissim1980_std `controls2_1950', vce(robust) 
-	outreg2 using "${main}/tables/ols_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls)
+	outreg2 using "${main}/output/tables/ols_all", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls)
 	reg pct_causal_`income'_kr26 dissim1980_std `controls1950', vce(robust) 
-	outreg2 using "${main}/tables/ols_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls) 
+	outreg2 using "${main}/output/tables/ols_all", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls) 
 	
 	local replace ""
 }
@@ -361,19 +361,19 @@ gen diff_income = pct_causal_p75_kr26 - pct_causal_p25_kr26
 
 //IV
 ivregress 2sls diff_income (dissim1980_std=pct_nearhh), vce(robust)
-outreg2 using "${main}/tables/gap/iv_all", replace tex label  addtext(Division FE, No) 
+outreg2 using "${main}/output/tables/gap/iv_all", replace tex label  addtext(Division FE, No) 
 ivregress 2sls diff_income (dissim1980_std=pct_nearhh) `controls2_1950', vce(robust)
-outreg2 using "${main}/tables/gap/iv_controls2", drop(i.ndivision) tex label replace addtext(Division FE, No) ctitle(With Controls)
+outreg2 using "${main}/output/tables/gap/iv_controls2", drop(i.ndivision) tex label replace addtext(Division FE, No) ctitle(With Controls)
 ivregress 2sls diff_income (dissim1980_std=pct_nearhh) `controls1950', vce(robust)
-outreg2 using "${main}/tables/gap/iv_controls", drop(i.ndivision) tex label replace addtext(Division FE, Yes) ctitle(With Controls) 
+outreg2 using "${main}/output/tables/gap/iv_controls", drop(i.ndivision) tex label replace addtext(Division FE, Yes) ctitle(With Controls) 
 
 //OLS
 reg diff_income dissim1980_std, vce(robust)
-outreg2 using "${main}/tables/gap/ols_all", replace tex label addtext(Division FE, No) 
+outreg2 using "${main}/output/tables/gap/ols_all", replace tex label addtext(Division FE, No) 
 reg diff_income dissim1980_std `controls2_1950', vce(robust) 
-outreg2 using "${main}/tables/gap/ols_controls2", drop(i.ndivision) tex label replace addtext(Division FE, No) ctitle(With Controls)
+outreg2 using "${main}/output/tables/gap/ols_controls2", drop(i.ndivision) tex label replace addtext(Division FE, No) ctitle(With Controls)
 reg diff_income dissim1980_std `controls1950', vce(robust) 
-outreg2 using "${main}/tables/gap/ols_controls", drop(i.ndivision) tex label replace addtext(Division FE, Yes) ctitle(With Controls) 
+outreg2 using "${main}/output/tables/gap/ols_controls", drop(i.ndivision) tex label replace addtext(Division FE, Yes) ctitle(With Controls) 
 	
 
 /*
@@ -382,19 +382,19 @@ foreach income in p25 p75 {
 	
 	//IV
 	ivregress 2sls pct_causal_`income'_kr26 (dissim1980_std=pct_nearhh) [w=county_poptot1980], vce(robust)
-	outreg2 using "${main}/tables/iv_all_`income'", replace tex label  addtext(Division FE, No) 
+	outreg2 using "${main}/output/tables/iv_all_`income'", replace tex label  addtext(Division FE, No) 
 	ivregress 2sls pct_causal_`income'_kr26 (dissim1980_std=pct_nearhh) `controls2_1980' [w=county_poptot1980], vce(robust)
-	outreg2 using "${main}/tables/iv_all_`income'", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls)
+	outreg2 using "${main}/output/tables/iv_all_`income'", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls)
 	ivregress 2sls pct_causal_`income'_kr26 (dissim1980_std=pct_nearhh) `controls1980' [w=county_poptot1980], vce(robust)  
-	outreg2 using "${main}/tables/iv_all_`income'", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls) 
+	outreg2 using "${main}/output/tables/iv_all_`income'", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls) 
 	
 	//OLS
 	reg pct_causal_`income'_kr26 dissim1980_std [w=county_poptot1980], vce(robust)
-	outreg2 using "${main}/tables/ols_all_`income'", replace tex label addtext(Division FE, No) 
+	outreg2 using "${main}/output/tables/ols_all_`income'", replace tex label addtext(Division FE, No) 
 	reg pct_causal_`income'_kr26 dissim1980_std `controls2_1980' [w=county_poptot1980], vce(robust)
-	outreg2 using "${main}/tables/ols_all_`income'", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls)
+	outreg2 using "${main}/output/tables/ols_all_`income'", drop(i.ndivision) tex label append addtext(Division FE, No) ctitle(With Controls)
 	reg pct_causal_`income'_kr26 dissim1980_std `controls1980' [w=county_poptot1980], vce(robust)
-	outreg2 using "${main}/tables/ols_all_`income'", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls) 
+	outreg2 using "${main}/output/tables/ols_all_`income'", drop(i.ndivision) tex label append addtext(Division FE, Yes) ctitle(With Controls) 
 	
 }
 */
@@ -411,20 +411,20 @@ foreach gender in f m {
 		
 		// IV
 		ivregress 2sls pct_causal_`income'_kr26_`gender' (dissim1980_std=pct_nearhh) , vce(robust)
-		outreg2 using "${main}/tables/iv_all_gender", tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+		outreg2 using "${main}/output/tables/iv_all_gender", tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 		ivregress 2sls pct_causal_`income'_kr26_`gender' (dissim1980_std=pct_nearhh) `controls2_1950' , vce(robust)
-		outreg2 using "${main}/tables/iv_controls2_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+		outreg2 using "${main}/output/tables/iv_controls2_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 		ivregress 2sls pct_causal_`income'_kr26_`gender' (dissim1980_std=pct_nearhh) `controls1950' , vce(robust)
-		outreg2 using "${main}/tables/iv_controls_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str') 
+		outreg2 using "${main}/output/tables/iv_controls_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str') 
 		
 		
 		//OLS
 		reg pct_causal_`income'_kr26_`gender' dissim1980_std , vce(robust)
-		outreg2 using "${main}/tables/ols_all_gender", tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+		outreg2 using "${main}/output/tables/ols_all_gender", tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 		reg pct_causal_`income'_kr26_`gender' dissim1980_std `controls2_1950' , vce(robust)
-		outreg2 using "${main}/tables/ols_controls2_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+		outreg2 using "${main}/output/tables/ols_controls2_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 		reg pct_causal_`income'_kr26_`gender' dissim1980_std `controls1950' , vce(robust)
-		outreg2 using "${main}/tables/ols_controls_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str')
+		outreg2 using "${main}/output/tables/ols_controls_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str')
 		
 		local replace ""
 	}
@@ -440,20 +440,20 @@ gen diff_income_m = pct_causal_p75_kr26_m - pct_causal_p25_kr26_m
 foreach income in p25 p75 {
 	// IV
 	ivregress 2sls diff_gender_`income' (dissim1980_std=pct_nearhh) , vce(robust)
-	outreg2 using "${main}/tables/gap/iv_all", tex append label addtext(Division FE, No) ctitle(``gender'`income'str')
+	outreg2 using "${main}/output/tables/gap/iv_all", tex append label addtext(Division FE, No) ctitle(``gender'`income'str')
 	ivregress 2sls diff_gender_`income' (dissim1980_std=pct_nearhh) `controls2_1950' , vce(robust)
-	outreg2 using "${main}/tables/gap/iv_controls2", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+	outreg2 using "${main}/output/tables/gap/iv_controls2", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 	ivregress 2sls diff_gender_`income' (dissim1980_std=pct_nearhh) `controls1950' , vce(robust)
-	outreg2 using "${main}/tables/gap/iv_controls", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str') 
+	outreg2 using "${main}/output/tables/gap/iv_controls", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str') 
 	
 	
 	//OLS
 	reg diff_gender_`income' dissim1980_std , vce(robust)
-	outreg2 using "${main}/tables/gap/ols_all", tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+	outreg2 using "${main}/output/tables/gap/ols_all", tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 	reg diff_gender_`income' dissim1980_std `controls2_1950' , vce(robust)
-	outreg2 using "${main}/tables/gap/ols_controls2", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+	outreg2 using "${main}/output/tables/gap/ols_controls2", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 	reg diff_gender_`income' dissim1980_std `controls1950' , vce(robust)
-	outreg2 using "${main}/tables/gap/ols_controls", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str')
+	outreg2 using "${main}/output/tables/gap/ols_controls", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str')
 
 }
 
@@ -462,20 +462,20 @@ foreach income in p25 p75 {
 foreach gender in f m {
 	// IV
 	ivregress 2sls diff_income_`gender' (dissim1980_std=pct_nearhh) , vce(robust)
-	outreg2 using "${main}/tables/gap/iv_all", tex append label addtext(Division FE, No) ctitle(``gender'`income'str')
+	outreg2 using "${main}/output/tables/gap/iv_all", tex append label addtext(Division FE, No) ctitle(``gender'`income'str')
 	ivregress 2sls diff_income_`gender' (dissim1980_std=pct_nearhh) `controls2_1950' , vce(robust)
-	outreg2 using "${main}/tables/gap/iv_controls2", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+	outreg2 using "${main}/output/tables/gap/iv_controls2", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 	ivregress 2sls diff_income_`gender' (dissim1980_std=pct_nearhh) `controls1950' , vce(robust)
-	outreg2 using "${main}/tables/gap/iv_controls", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str') 
+	outreg2 using "${main}/output/tables/gap/iv_controls", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str') 
 	
 	
 	//OLS
 	reg diff_income_`gender' dissim1980_std , vce(robust)
-	outreg2 using "${main}/tables/gap/ols_all", tex append label addtext(Division FE, No) ctitle(``gender'`income'str')
+	outreg2 using "${main}/output/tables/gap/ols_all", tex append label addtext(Division FE, No) ctitle(``gender'`income'str')
 	reg diff_income_`gender' dissim1980_std `controls2_1950' , vce(robust)
-	outreg2 using "${main}/tables/gap/ols_controls2", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+	outreg2 using "${main}/output/tables/gap/ols_controls2", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 	reg diff_income_`gender' dissim1980_std `controls1950' , vce(robust)
-	outreg2 using "${main}/tables/gap/ols_controls", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str')
+	outreg2 using "${main}/output/tables/gap/ols_controls", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str')
 	
 
 }
@@ -489,20 +489,20 @@ foreach gender in f m {
 		
 		// IV
 		ivregress 2sls pct_causal_`income'_kr26_`gender' (dissim1980_std=pct_nearhh) [w=county_poptot1980], vce(robust)
-		outreg2 using "${main}/tables/iv_all_gender", tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+		outreg2 using "${main}/output/tables/iv_all_gender", tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 		ivregress 2sls pct_causal_`income'_kr26_`gender' (dissim1980_std=pct_nearhh) `controls2_1980' [w=county_poptot1980], vce(robust)
-		outreg2 using "${main}/tables/iv_controls2_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+		outreg2 using "${main}/output/tables/iv_controls2_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 		ivregress 2sls pct_causal_`income'_kr26_`gender' (dissim1980_std=pct_nearhh) `controls1980' [w=county_poptot1980] , vce(robust)
-		outreg2 using "${main}/tables/iv_controls_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str') 
+		outreg2 using "${main}/output/tables/iv_controls_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str') 
 		
 		
 		//OLS
 		reg pct_causal_`income'_kr26_`gender' dissim1980_std [w=county_poptot1980], vce(robust)
-		outreg2 using "${main}/tables/ols_all_gender", tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+		outreg2 using "${main}/output/tables/ols_all_gender", tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 		reg pct_causal_`income'_kr26_`gender' dissim1980_std `controls2_1980' [w=county_poptot1980], vce(robust)
-		outreg2 using "${main}/tables/ols_controls2_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
+		outreg2 using "${main}/output/tables/ols_controls2_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, No) ctitle(``gender'`income'str')
 		reg pct_causal_`income'_kr26_`gender' dissim1980_std `controls1980' [w=county_poptot1980], vce(robust)
-		outreg2 using "${main}/tables/ols_controls_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str')
+		outreg2 using "${main}/output/tables/ols_controls_gender", drop(i.ndivision) tex `replace' label addtext(Division FE, Yes) ctitle(``gender'`income'str')
 		
 		local replace ""
 	}
@@ -512,13 +512,13 @@ foreach gender in f m {
 
 ********** Summary Statistics **********
 estpost sum dissim_county1980 dissim_b_county1980 dissim_w_county1980 county_poptot1980_th county_avgmedianinc1980 county_pct_black1980 county_pct_qtl1_1980 county_pct_qtl5_1980 
-esttab using "${main}/tables/summstats/1980summstats.tex", cell((mean(label(Mean) fmt(%9.2f)) ///
+esttab using "${main}/output/tables/summstats/1980summstats.tex", cell((mean(label(Mean) fmt(%9.2f)) ///
 	sd(label(Standard Deviation) fmt(%9.3f)) count(label(Count) fmt(%9.0f)) )) label ///
 	nonumber nomtitle noobs replace
 
 
 estpost sum dissim_county1950 population_1950_th medianinc_1950 county_pct_black1950 county_pct_qtl1_1950 county_pct_qtl5_1950 
-esttab using "${main}/tables/summstats/1950summstats.tex", cell((mean(label(Mean) fmt(%9.2f)) ///
+esttab using "${main}/output/tables/summstats/1950summstats.tex", cell((mean(label(Mean) fmt(%9.2f)) ///
 	sd(label(Standard Deviation) fmt(%9.3f)) count(label(Count) fmt(%9.0f)) )) label ///
 	nonumber nomtitle noobs replace
 

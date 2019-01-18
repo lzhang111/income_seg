@@ -8,7 +8,7 @@ program drop _all
 set more off
 global main `"/Users/laurazhang/Documents/income_seg/"'
 
-use "${main}/clean/master_tract.dta", 
+use "${main}/data/clean/master_tract.dta", 
 rename inc_pctl* inc_qtl* 
 rename (inc*_w* inc*_b*)  (inc**_w inc**_b)
 
@@ -49,5 +49,5 @@ keep geo2010 cbsaname cbsa10 wtmedianinc1950 wtmedianinc1980 diff_pct pct_inc_qt
 
 replace diff_pct = . if diff_pct > 10 | diff_pct < -.5 //drop 2% of extremes
 
-save "${main}/temp/medianinc_plot", replace
-export delimited "${main}/temp/medianinc_plot", replace
+save "${main}/data/temp/medianinc_plot", replace
+export delimited "${main}/data/temp/medianinc_plot", replace

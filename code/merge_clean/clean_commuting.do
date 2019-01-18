@@ -43,7 +43,7 @@ ren (dhe001-dhe008) (travtime_l5 travtime_5_9 travtime_10_14 travtime_15_19 trav
 drop blck_grpa-zipa
 filltract
 
-save "${main}/temp/commuting_temp.dta", replace
+save "${main}/data/temp/commuting_temp.dta", replace
 
 ***** adjust data *******
 do "${main}/code/merge_clean/gen_const_commuting.do"

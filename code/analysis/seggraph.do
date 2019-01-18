@@ -8,7 +8,7 @@ set more off
 global main `"/Users/laurazhang/Documents/income_seg/"'
 set seed 123
 
-use "${main}/clean/master_tract.dta", 
+use "${main}/data/clean/master_tract.dta", 
 rename inc_pctl* inc_qtl* 
 rename (inc*_w* inc*_b*)  (inc**_w inc**_b)
 
@@ -87,4 +87,4 @@ twoway (line mean_dissim year) (rcap ub lb year) (line mean_dissim_b year) (rcap
 	label(4 "95% CI") label(5 "White Families") label(6 "95% CI") /*label(7 "Racial Dissimilarity") label(8 "95% CI")*/) ///
 	xlabel(1950(10)2010) ylabel(0.25(.05).55) legend(pos(6) col(3) order(1 3 5 2 4 6) ) ysize(8) xsize(9)
 
-graph export "${main}/plots/dissim_time.png", replace
+graph export "${main}/output/plots/dissim_time.png", replace

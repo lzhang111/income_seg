@@ -8,12 +8,12 @@ program drop _all
 global main `"/Users/laurazhang/Documents/income_seg/"'
 
 ******** use commuting data *********
-use "${main}/clean/commuting_clean.dta"
+use "${main}/data/clean/commuting_clean.dta"
 gen year = 1980
 ren trtid10 geo2010
 
 ******** merge with master data *********
-merge 1:1 year geo2010 using "${main}/clean/master_tract.dta", keep(3) nogen
+merge 1:1 year geo2010 using "${main}/data/clean/master_tract.dta", keep(3) nogen
 
 egen disthighway_full = rowmin(disthighway distyellowbook)
 
@@ -80,7 +80,7 @@ foreach var in pct_travtime_p45 pct_placework_smsa_cc pct_car {
 		local addplot "graph twoway addplot"	
 		
 	}
-	graph export "${main}/plots/commuting/`var'.png", replace
+	graph export "${main}/output/plots/commuting/`var'.png", replace
 }
 
 ********** check that commuting costs is not correlated with instrument
@@ -97,7 +97,7 @@ bys county: keep if _n ==1
 encode division, gen(ndivision)
 
 // 1950 control data
-merge 1:1 county using "${main}/temp/county1950vars.dta", keep(1 3) keepusing(*1950)
+merge 1:1 county using "${main}/data/temp/county1950vars.dta", keep(1 3) keepusing(*1950)
 drop _merge
 
 gen logcounty_population1950 = log(population_1950)
@@ -112,6 +112,6 @@ label var county_dist_cbd "Distance to CBD"
 
 
 reg avgpct_travtime_p45 pct_nearhh county_dist_cbd , robust
-outreg2 using "${main}/tables/commuting_check", tex label replace 
+outreg2 using "${main}/output/tables/commuting_check", tex label replace 
 reg avgpct_travtime_p60 pct_nearhh county_dist_cbd , robust
-outreg2 using "${main}/tables/commuting_check", tex label append 
+outreg2 using "${main}/output/tables/commuting_check", tex label append 

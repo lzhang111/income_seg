@@ -8,7 +8,7 @@ set more off
 global main `"/Users/laurazhang/Documents/income_seg/"'
 set seed 123
 
-use "${main}/clean/master_tract.dta", 
+use "${main}/data/clean/master_tract.dta", 
 rename inc_pctl* inc_qtl* 
 rename (inc*_w* inc*_b*)  (inc**_w inc**_b)
 
@@ -83,7 +83,7 @@ foreach var in /*wtmedianinc */ pct_inc_qtl1 pct_inc_qtl5 {
 				name(`var'_`bin'_`year', replace)  /*linetype(none) nq(25) ytitle("``var'str'") */ ///
 				xtitle("Distance from Highway (Miles)") legend(label(1 "95% CI") label(2 "Mean"))
 				
-			graph export "${main}/plots/incomesort/`var'`bin'_`year'.png", replace
+			graph export "${main}/output/plots/incomesort/`var'`bin'_`year'.png", replace
 				
 			drop xq-tagxq
 		}
@@ -152,7 +152,7 @@ foreach race in _w _b {
 				name(`var'`race'_`bin'_`year', replace) /* linetype(none) nq(25) ytitle("``var'str'") */ ///
 				xtitle("Distance from Highway (Miles)") legend(label(1 "95% CI") label(2 "Mean"))
 				
-			graph export "${main}/plots/incomesort/`var'`race'`bin'_`year'.png", replace
+			graph export "${main}/output/plots/incomesort/`var'`race'`bin'_`year'.png", replace
 				
 			drop xq-tagxq
 
@@ -214,7 +214,7 @@ foreach var in /* d_medianinc */ d_pct_inc_qtl1 d_pct_inc_qtl5 {
 			name(`var'_`bin', replace) yline(0) /*linetype(none)  nq(30) ytitle("``var'str'") */ ///
 			xtitle("Distance from Highway (Miles)") legend(label(1 "95% CI") label(2 "Mean"))
 		
-		graph export "${main}/plots/incomesort/`var'`bin'_`comp_year'.png", replace
+		graph export "${main}/output/plots/incomesort/`var'`bin'_`comp_year'.png", replace
 		
 		drop xq-tagxq
 

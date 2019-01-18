@@ -13,7 +13,7 @@ local year = 1980
 local xwalkstr `"${main}/data/raw/crosswalks/LTDB crosswalks and code/"'
 
 global input_file "${main}/data/temp/commuting_temp.dta"
-global output_file "${main}/data/clean/commuting_clean"
+global output_file "${main}/data/clean/commuting_clean.dta"
 global crosswalk_file "`xwalkstr'crosswalk_`year'_2010.dta"
 global crosswalk_year = substr("`year'", 3, 2)
 global input_idvar "tractfull"
@@ -175,7 +175,6 @@ while $i <= $n_medians {
 drop $missweights $allmiss_vars
 sort trtid10
 save $output_file, replace
-export delimited $output_file, replace
 summ
 exit
 

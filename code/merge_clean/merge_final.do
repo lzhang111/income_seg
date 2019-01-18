@@ -76,7 +76,7 @@ drop _merge
 
 **************************************************
 *************add region and division indicators****
-merge m:1 statefips using "${temp}/region_state_xwalk", keep(1 3)
+merge m:1 statefips using "${main}/data/temp/region_state_xwalk", keep(1 3)
 drop _merge
 
 ************************************************

@@ -18,9 +18,9 @@ library(RColorBrewer)
 setwd("~/Documents/income_seg")
 
 # shapefiles
-tracts2010 = readOGR(dsn="./raw/nhgis/tract2010 - 2010 TL", layer="US_tract_2010")
-highways = readOGR(dsn="/Volumes/lzhang96/income_seg", layer="highway_lines")
-bs_highway = readOGR(dsn="/Volumes/lzhang96/income_seg", layer="baumsnow_final")
+tracts2010 = readOGR(dsn="./data/raw/nhgis/tract2010 - 2010 TL", layer="US_tract_2010")
+highways = readOGR(dsn="./data/raw/gis", layer="highway_lines")
+bs_highway = readOGR(dsn="./data/raw/gis", layer="baumsnow_final")
 
 # CRS used by census
 crs_str = CRS("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")
@@ -30,7 +30,7 @@ highways = spTransform(highways, crs_str)
 bs_highway = spTransform(bs_highway, crs_str)
 
 # median income data
-trmedianinc = read.csv(file="./temp/medianinc_plot.csv", header=TRUE, sep=",")
+trmedianinc = read.csv(file="./data/temp/medianinc_plot.csv", header=TRUE, sep=",")
 trmedianinc$GEOID10 = str_pad(trmedianinc$geo2010, width = 11, side="left", pad="0") 
 tracts2010@data = left_join(tracts2010@data, trmedianinc, by ="GEOID10")
 
@@ -72,60 +72,60 @@ spplot(houston.tracts1980, "pct_inc_qtl11980",
                         list("sp.lines", bs_highway, col="purple", first=FALSE) ), 
        par.settings = list(panel.background=list(col="grey")) )
 
-
-
-# not used
-spplot(stlouis.tracts, "diff_pct", 
-       main = "% Change in Median Income from 1950-2000", 
-       col="transparent", at = breaks.qt$brks, col.regions = my.palette,
-       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
-                        list("sp.lines", bs_highway, col="purple", first=FALSE) ), 
-       par.settings = list(panel.background=list(col="grey")) )
-
-spplot(losangeles.tracts, "dtrpct_inc_qtl1", 
-       main = "Absolute Change in % of Lowest Quintile Families in Tract, from 1950-2000",
-       col="transparent", at = breaks_dtrpct$brks, col.regions = my.palette,
-       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
-                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
-       par.settings = list(panel.background=list(col="grey")) )
-
-
-spplot(newyork.tracts, "diff_pct", 
-       main = "% Change in Median Income from 1950-2000", 
-       col="transparent", at = breaks.qt$brks, col.regions = my.palette,
-       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
-                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
-       par.settings = list(panel.background=list(col="grey")) )
-
-spplot(houston.tracts, "dtrpct_inc_qtl1", 
-       main = "Absolute Change in % of Lowest Quintile Families in Tract, from 1950-2000",
-       col="transparent", at = breaks_dtrpct$brks, col.regions = my.palette,
-       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
-                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
-       par.settings = list(panel.background=list(col="grey")) )
-
-
-spplot(austin.tracts, "diff_pct", 
-       main = "% Change in Median Income from 1950-2000", 
-       col="transparent", at = breaks.qt$brks, col.regions = my.palette,
-       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
-                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
-       par.settings = list(panel.background=list(col="grey")) )
-
-spplot(seattle.tracts, "diff_pct", 
-       main = "% Change in Median Income from 1950-2000", 
-       col="transparent", at = breaks.qt$brks, col.regions = my.palette,
-       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
-                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
-       par.settings = list(panel.background=list(col="grey")) )
-
-spplot(boston.tracts, "dtrpct_inc_qtl5", 
-       main = "Absolute Change in % of Highest Quintile Families in Tract, from 1950-2000", 
-       col="transparent", at = breaks_dtrpct$brks, col.regions = my.palette,
-       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
-                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
-       par.settings = list(panel.background=list(col="grey")) )
-
-
-
-
+//
+//
+//not used
+//spplot(stlouis.tracts, "diff_pct", 
+//       main = "% Change in Median Income from 1950-2000", 
+//       col="transparent", at = breaks.qt$brks, col.regions = my.palette,
+//       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
+//                        list("sp.lines", bs_highway, col="purple", first=FALSE) ), 
+//       par.settings = list(panel.background=list(col="grey")) )
+//
+//spplot(losangeles.tracts, "dtrpct_inc_qtl1", 
+//       main = "Absolute Change in % of Lowest Quintile Families in Tract, from 1950-2000",
+//       col="transparent", at = breaks_dtrpct$brks, col.regions = my.palette,
+//       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
+//                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
+//       par.settings = list(panel.background=list(col="grey")) )
+//
+//
+//spplot(newyork.tracts, "diff_pct", 
+//       main = "% Change in Median Income from 1950-2000", 
+//       col="transparent", at = breaks.qt$brks, col.regions = my.palette,
+//       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
+//                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
+//       par.settings = list(panel.background=list(col="grey")) )
+//
+//spplot(houston.tracts, "dtrpct_inc_qtl1", 
+//       main = "Absolute Change in % of Lowest Quintile Families in Tract, from 1950-2000",
+//       col="transparent", at = breaks_dtrpct$brks, col.regions = my.palette,
+//       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
+//                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
+//       par.settings = list(panel.background=list(col="grey")) )
+//
+//
+//spplot(austin.tracts, "diff_pct", 
+//       main = "% Change in Median Income from 1950-2000", 
+//       col="transparent", at = breaks.qt$brks, col.regions = my.palette,
+//       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
+//                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
+//       par.settings = list(panel.background=list(col="grey")) )
+//
+//spplot(seattle.tracts, "diff_pct", 
+//       main = "% Change in Median Income from 1950-2000", 
+//       col="transparent", at = breaks.qt$brks, col.regions = my.palette,
+//       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
+//                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
+//       par.settings = list(panel.background=list(col="grey")) )
+//
+//spplot(boston.tracts, "dtrpct_inc_qtl5", 
+//       main = "Absolute Change in % of Highest Quintile Families in Tract, from 1950-2000", 
+//       col="transparent", at = breaks_dtrpct$brks, col.regions = my.palette,
+//       sp.layout = list(list("sp.lines", highways, col="green", first=FALSE), 
+//                        list("sp.lines", bs_highway, col="purple", first=FALSE) ),
+//       par.settings = list(panel.background=list(col="grey")) )
+//
+//
+//
+//

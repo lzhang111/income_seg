@@ -18,13 +18,13 @@ setwd("~/Documents/income_seg")
 crs_str = CRS("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")
 
 # read in files
-centertracts2010 = read.csv(file="./raw/tract centerpop/cenpop2010_mean_tract.csv", header=TRUE, sep=",")
+centertracts2010 = read.csv(file="./data/raw/tract centerpop/cenpop2010_mean_tract.csv", header=TRUE, sep=",")
 coordinates(centertracts2010)=~LONGITUDE+LATITUDE # set coordinates
 proj4string(centertracts2010)=CRS("+proj=longlat +datum=NAD83") # set CRS
 
-highways = readOGR(dsn="/Volumes/lzhang96/income_seg", layer="highway_lines")
-yellowbook = readOGR(dsn="/Volumes/lzhang96/income_seg", layer="yellowbook_lines")
-bs_highway = readOGR(dsn="/Volumes/lzhang96/income_seg", layer="baumsnow_final")
+highways = readOGR(dsn="./data/raw/gis", layer="highway_lines")
+yellowbook = readOGR(dsn="./data/raw/gis", layer="yellowbook_lines")
+bs_highway = readOGR(dsn="./data/raw/gis", layer="baumsnow_final")
 
 # change data CRS
 highways = spTransform(highways, crs_str)
@@ -46,4 +46,4 @@ distances = do.call("cbind", list(min_disthighway, min_distyellowbook, min_distb
 colnames(distances) = c("min_disthighway", "min_distyellowbook", "min_distbshighway", "statefips", "countyfips","TRACTCE10")
 
 # save to csv file
-write.table(distances, file="./raw/highway distances/highway_distances.csv", row.names = F)
+write.table(distances, file="./data/raw/highway distances/highway_distances.csv", row.names = F)

@@ -15,21 +15,21 @@ setwd("~/Documents/income_seg")
 crs_str = CRS("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")
 
 # read in CBD
-cbd_data <- read.csv(file="./raw/cbd data/cbsa2010_cbdcodes_edit.csv", header=TRUE, sep=",")
+cbd_data <- read.csv(file="./data/raw/cbd data/cbsa2010_cbdcodes_edit.csv", header=TRUE, sep=",")
 coordinates(cbd_data)=~cbdlon+cbdlat
 proj4string(cbd_data)<- CRS("+init=epsg:4326")
 # transform CRS of CBD data to CRS of Census
 cbd_transform = spTransform(cbd_data, crs_str)
 
 # read in center of tract data
-centertracts2010 = read.csv(file="./raw/tract centerpop/cenpop2010_mean_tract.csv", header=TRUE, sep=",")
+centertracts2010 = read.csv(file="./data/raw/tract centerpop/cenpop2010_mean_tract.csv", header=TRUE, sep=",")
 coordinates(centertracts2010)=~LONGITUDE+LATITUDE # set coordinates
 proj4string(centertracts2010)=CRS("+proj=longlat +datum=NAD83") # set CRS
 # transform to Census CRS
 centertracts2010 = spTransform(centertracts2010, crs_str)
 
 # read in crosswalk from tract to CBSA
-cbsa10 <- read.csv(file="./temp/cbsa_county2010_crosswalk.csv", header=TRUE, sep=",")
+cbsa10 <- read.csv(file="./data/temp/cbsa_county2010_crosswalk.csv", header=TRUE, sep=",")
 cbsa10['county'] = sprintf("%05d",cbsa10$county)
 
 ## prepare tracts data ##
@@ -52,5 +52,5 @@ final_df['dist_cbd'] = sqrt((final_df$tractlat - final_df$cbdlat)^2 + (final_df$
 
 # export to csv
 final_df = subset(final_df, (!is.na(final_df[,"dist_cbd"])))
-write.csv(final_df[, c(1:5, 13)], file="./raw/cbd data/cbd_distances.csv", row.names = FALSE)
+write.csv(final_df[, c(1:5, 13)], file="./data/raw/cbd data/cbd_distances.csv", row.names = FALSE)
 
