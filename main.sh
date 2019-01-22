@@ -4,7 +4,6 @@
 # Make sure that Stata, R, and Python are installed and added to your path 
 # and that you have execute permission for the script
 
-# batch
 echo 'starting to process'
 
 # change to the right directory
